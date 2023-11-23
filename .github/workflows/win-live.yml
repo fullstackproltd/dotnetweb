@@ -34,4 +34,5 @@ jobs:
           source: publish/*
           target: '/c/inetpub/wwwroot/dotnetweb2/'
           tar_dereference: true
+          strip_components: 1
           rm: true
