@@ -25,11 +25,13 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -o publish
       - name: Deploy
-        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        uses: appleboy/scp-action@v0.1.4
         with:
-          website-name: dotnetweb2.${{ secrets.SERVER_COMPUTER_NAME }}
-          server-computer-name: https://dotnetweb2.${{ secrets.SERVER_COMPUTER_NAME }}:8172
-          server-username: ${{ secrets.SERVER_USERNAME }}
-          server-password: ${{ secrets.SERVER_PASSWORD }}
-          source-path: '\publish\'
-          target-delete: true
+          website-name: ${{ secrets.SSH_SERVER }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 2222
+          source: 'publish'
+          target: '/c/inetpub/wwwroot/dotnetweb2/'
+          tar_dereference: true
+          rm: true
