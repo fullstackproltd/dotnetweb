@@ -27,8 +27,8 @@ jobs:
       - name: Deploy
         uses: rasmusbuchholdt/simply-web-deploy@2.1.0
         with:
-          website-name: dotnetweb2
-          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          website-name: dotnetweb2.${{ secrets.SERVER_COMPUTER_NAME }}
+          server-computer-name: https://dotnetweb2.${{ secrets.SERVER_COMPUTER_NAME }}:8172
           server-username: ${{ secrets.SERVER_USERNAME }}
           server-password: ${{ secrets.SERVER_PASSWORD }}
           source-path: '\publish\'
