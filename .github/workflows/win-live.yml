@@ -27,7 +27,7 @@ jobs:
       - name: Deploy
         uses: appleboy/scp-action@v0.1.4
         with:
-          website-name: ${{ secrets.SSH_SERVER }}
+          host: ${{ secrets.SSH_SERVER }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 2222
