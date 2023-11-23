@@ -1,0 +1,35 @@
+#SSH_SERVER = IP OR DNS name
+#SSH_USER = asad or whatever linux user is
+#SSH_KEY = private ssh key
+
+name: win-ssh
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-publish-ftp:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.100'
+
+      - name: Build
+        run: dotnet build -c Release
+      - name: Publish
+        run: dotnet publish -c Release -o publish
+      - name: Deploy
+        uses: rasmusbuchholdt/simply-web-deploy@2.1.0
+        with:
+          website-name: dotnetweb2
+          server-computer-name: ${{ secrets.SERVER_COMPUTER_NAME }}
+          server-username: ${{ secrets.SERVER_USERNAME }}
+          server-password: ${{ secrets.SERVER_PASSWORD }}
+          source-path: '\publish\'
+          target-delete: true
